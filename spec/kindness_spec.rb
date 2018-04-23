@@ -1,9 +1,22 @@
+require 'kindness'
+require 'kindness/rubric'
+
 RSpec.describe Kindness do
-  it "has a version number" do
-    expect(Kindness::VERSION).not_to be nil
+  class Duck
+    extend Kindness
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe 'behavior' do
+    Given(:essence) { :daffy }
+    When(:subject) { Duck[essence] }
+
+    Then { subject.is_a? Kindness::Rubric }
+    Then { subject.essence == essence }
+    Then { subject.class == Duck }
+
+  end
+
+  describe 'version number' do
+    Then { expect(Kindness::VERSION).not_to be_nil }
   end
 end
