@@ -11,20 +11,26 @@ RSpec.describe Kindness::Rubric do
   When(:subject) { Dad[essence] }
 
   describe '#valid?' do
-    context 'default' do
+    context 'with no rubrics defined' do
       Then { expect(subject).to be_valid }
     end
 
-    context 'overridden' do
+    context 'with :age rubric defined' do
       Given do
         class Dad
-          def valid?
+          rubric :name do |essence|
+            essence.name == 'Bill'
+          end
+
+          rubric :age, 'Not old enough' do |essence|
             essence.age > 50
           end
         end
       end
 
       Then { expect(subject).to_not be_valid }
+      And { subject.messages[:name] == 'Invalid name' }
+      And { subject.messages[:age] == 'Not old enough' }
     end
   end
 end
