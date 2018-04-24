@@ -7,13 +7,8 @@ RSpec.describe Kindness do
   end
 
   describe 'behavior' do
-    Given(:essence) { :daffy }
-    When(:subject) { Duck[essence] }
-
-    Then { subject.is_a? Kindness::Rubric }
-    Then { subject.essence == essence }
-    Then { subject.class == Duck }
-
+    Then { expect(Duck).to respond_to(:[]) }
+    Then { expect(Duck[:foo]).to be_instance_of(Duck) }
   end
 
   describe 'version number' do

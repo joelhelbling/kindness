@@ -1,8 +1,10 @@
 require 'kindness/version'
+require 'kindness/identity'
 require 'kindness/rubric'
 
 module Kindness
   def self.extended(base)
+    base.include Identity
     base.include Rubric
   end
 
