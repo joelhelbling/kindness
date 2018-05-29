@@ -21,19 +21,13 @@ RSpec.describe Kindness::Identity do
 
   describe '#essence' do
     Then { subject.essence == essence }
+    Then { subject.value == essence }
     Then { subject.kind_of? OpenStruct }
     Then { subject.is_a? OpenStruct }
   end
 
-  describe 'delegation' do
-    context 'getting' do
-      Then { subject.name == 'Mel' }
-    end
-
-    context 'mutation' do
-      When { subject.name = 'Mr. Gibson' }
-      Then { essence.name == 'Mr. Gibson' }
-    end
+  describe 'do not delegate' do
+    Then { expect{subject.name}.to raise_error(NoMethodError) }
   end
 end
 

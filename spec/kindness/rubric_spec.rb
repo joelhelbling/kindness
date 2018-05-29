@@ -7,7 +7,7 @@ RSpec.describe Kindness::Rubric do
     end
   end
 
-  Given(:essence) { OpenStruct.new name: 'Mel', age: 43 }
+  Given(:essence) { OpenStruct.new name: 'Homer', age: 43 }
   When(:subject) { Dad[essence] }
 
   describe '#valid?' do

@@ -19,6 +19,7 @@ module Kindness
     def rubrics
       self.class.rubrics
     end
+    private :rubrics
 
     def self.included(base)
       base.extend ClassMethods
