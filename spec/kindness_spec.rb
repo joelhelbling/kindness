@@ -1,5 +1,5 @@
 require 'kindness'
-require 'kindness/rubric'
+require 'kindness/criterion'
 
 RSpec.describe Kindness do
   class Duck

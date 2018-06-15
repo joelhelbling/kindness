@@ -1,6 +1,6 @@
 require 'ostruct'
 
-RSpec.describe Kindness::Rubric do
+RSpec.describe Kindness::Criterion do
   Given do
     class Dad
       extend Kindness

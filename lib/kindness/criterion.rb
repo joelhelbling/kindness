@@ -1,7 +1,7 @@
 require 'ostruct'
 
 module Kindness
-  module Rubric
+  module Criterion
     attr_reader :messages
 
     def valid?

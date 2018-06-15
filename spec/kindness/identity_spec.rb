@@ -15,8 +15,8 @@ RSpec.describe Kindness::Identity do
 
     Then { subject.kind_of? Director }
     Then { subject.is_a? Director }
-    Then { subject.kind_of? Kindness::Rubric }
-    Then { subject.is_a? Kindness::Rubric }
+    Then { subject.kind_of? Kindness::Criterion }
+    Then { subject.is_a? Kindness::Criterion }
   end
 
   describe '#essence' do

@@ -1,11 +1,11 @@
 require 'kindness/version'
 require 'kindness/identity'
-require 'kindness/rubric'
+require 'kindness/criterion'
 
 module Kindness
   def self.extended(base)
     base.include Identity
-    base.include Rubric
+    base.include Criterion
   end
 
   def [](essence)
