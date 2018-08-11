@@ -26,9 +26,9 @@ module Kindness
     end
 
     module ClassMethods
-      def rubric(rule_name, message=nil, &block)
-        message ||= "Invalid #{rule_name}"
-        rubrics[rule_name] = OpenStruct.new({
+      def insist(attribute_name, message=nil, &block)
+        message ||= "Invalid #{attribute_name}"
+        rubrics[attribute_name] = OpenStruct.new({
           message: message,
           rule: block
         })

@@ -1,5 +1,5 @@
 module Kindness
-  class Rubric
+  class Signature
     attr_reader :criteria
 
     def initialize(criteria)
@@ -7,7 +7,7 @@ module Kindness
     end
 
     def validates?(*args)
-      return false unless args.size <= criteria.size
+      return false unless args.size == criteria.size
       evaluations_for(args).all?(&:valid?)
     end
 

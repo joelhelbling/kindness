@@ -27,6 +27,7 @@ RSpec.describe Kindness::Identity do
   end
 
   describe 'do not delegate' do
+    Then { subject.essence.name == 'Mel' }
     Then { expect{subject.name}.to raise_error(NoMethodError) }
   end
 end

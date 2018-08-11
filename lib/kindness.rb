@@ -1,7 +1,7 @@
 require 'kindness/version'
 require 'kindness/identity'
 require 'kindness/criterion'
-require 'kindness/rubric'
+require 'kindness/signature'
 
 module Kindness
   def self.extended(base)

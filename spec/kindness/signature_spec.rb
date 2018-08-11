@@ -1,11 +1,11 @@
 require 'ostruct'
 
-RSpec.describe Kindness::Rubric do
+RSpec.describe Kindness::Signature do
   Given do
     class Predator
       extend Kindness
 
-      rubric :says do |essence|
+      insist :says do |essence|
         essence.speak == 'yip'
       end
     end
@@ -13,7 +13,7 @@ RSpec.describe Kindness::Rubric do
     class Fowl
       extend Kindness
 
-      rubric :quacks do |essence|
+      insist :quacks do |essence|
         essence.speak == 'kweh'
       end
     end
@@ -21,12 +21,13 @@ RSpec.describe Kindness::Rubric do
     class Grain
       extend Kindness
 
-      rubric :silent do |essence|
-        !essence.respond_to?(:speak)
+      insist :silent do |essence|
+        essence && !essence.respond_to?(:speak)
       end
     end
   end
-  Given(:rubric) do
+
+  Given(:signature) do
     described_class.new fox: Predator, goose: Fowl, wheat: Grain
   end
 
@@ -43,7 +44,7 @@ RSpec.describe Kindness::Rubric do
     Given(:goose_say) { 'kweh' }
     Given(:wheat) { :dwarf_wheat }
 
-    Then { rubric.validates?(*parameters) }
+    Then { signature.validates?(*parameters) }
   end
 
   context "one parameter is invalid" do
@@ -52,7 +53,7 @@ RSpec.describe Kindness::Rubric do
     Given(:goose_say) { 'kweh' }
     Given(:wheat) { :dwarf_wheat }
 
-    Then { not rubric.validates?(*parameters) }
+    Then { not signature.validates?(*parameters) }
   end
 
   context "not enough parameters" do
@@ -62,7 +63,7 @@ RSpec.describe Kindness::Rubric do
 
     When { parameters.pop }
 
-    Then { rubric.validates?(*parameters) } # nil.respond_to?(:speak)
+    Then { not signature.validates?(*parameters) }
   end
 
   context "too many parameters" do
@@ -72,6 +73,6 @@ RSpec.describe Kindness::Rubric do
 
     When { parameters << :boat }
 
-    Then { not rubric.validates?(*parameters) }
+    Then { not signature.validates?(*parameters) }
   end
 end
