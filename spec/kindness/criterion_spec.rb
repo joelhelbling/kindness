@@ -7,15 +7,15 @@ RSpec.describe Kindness::Criterion do
     end
   end
 
-  Given(:essence) { OpenStruct.new name: 'Homer', age: 43 }
   When(:subject) { Dad[essence] }
 
   describe '#valid?' do
     context 'with no rules defined' do
+      Given(:essence) { OpenStruct.new name: 'Homer', age: 43 }
       Then { expect(subject).to be_valid }
     end
 
-    context 'with :age rule defined' do
+    context 'with rules defined' do
       Given do
         class Dad
           insist :name do |essence|
@@ -28,9 +28,25 @@ RSpec.describe Kindness::Criterion do
         end
       end
 
-      Then { expect(subject).to_not be_valid }
-      And { subject.messages[:name] == 'Invalid name' }
-      And { subject.messages[:age] == 'Not old enough' }
+      context 'when one rule is broken' do
+        Given(:essence) { OpenStruct.new name: 'Homer', age: 51 }
+        Then { expect(subject).to_not be_valid }
+        And { subject.messages[:name] == 'Invalid name' }
+        And { expect(subject.messages[:age]).to be_nil }
+      end
+
+      context 'when multiple rules are broken' do
+        Given(:essence) { OpenStruct.new name: 'Homer', age: 43 }
+        Then { expect(subject).to_not be_valid }
+        And { subject.messages[:name] == 'Invalid name' }
+        And { subject.messages[:age] == 'Not old enough' }
+      end
+
+      context 'when no rules are broken' do
+        Given(:essence) { OpenStruct.new name: 'Bill', age: 54 }
+        Then { expect(subject).to be_valid }
+        And { expect(subject.messages).to be_empty }
+      end
     end
   end
 end
